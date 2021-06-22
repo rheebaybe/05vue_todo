@@ -1,7 +1,9 @@
 <template>
   <todoheader />
-  <todoinput @addTodo="addTodo;$event" />
-  <todolist :todoItems="todoItems" />
+  <todoinput @addTodo="addTodo" />
+                     <!-- 작명 -->
+  <todolist :todoItems="todoItems" @removeTodo="removeTodo" />
+              <!-- 작명                                작명 -->
   <todofooter />
 </template>
 
@@ -24,17 +26,22 @@ export default {
       todoItems:[]
     }
   },
-  created(){
+  created(){    
     for(let i=0;i<localStorage.length;i++){
-      if(localStorage.key(i) !== 'loglevel:webpack-dev-server')
+      if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
         this.todoItems.push(localStorage.key(i));
+      }
     }
   },
   methods:{
     addTodo(todoItem){
 //todoItem=작명,input.vue의 value값을 가져온것
       localStorage.setItem(todoItem,todoItem)
-      this.todoItems.pusth(todoItem)
+      this.todoItems.push(todoItem)
+    },
+    removeTodo(todoItem,index){
+      localStorage.removeItem(todoItem)
+      this.todoItems.splice(index,1)
     }
   }
 }
