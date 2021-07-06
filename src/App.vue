@@ -4,7 +4,8 @@
                      <!-- 작명 -->
   <todolist :todoItems="todoItems" @removeTodo="removeTodo" />
               <!-- 작명                                작명 -->
-  <todofooter />
+
+  <todofooter @clearTodo="clearTodo"/>
 </template>
 
 <script>
@@ -34,6 +35,10 @@ export default {
     }
   },
   methods:{
+    clearTodo(){
+      localStorage.clear();
+      this.todoItems=[]
+    },
     addTodo(todoItem){
 //todoItem=작명,input.vue의 value값을 가져온것
       localStorage.setItem(todoItem,todoItem)
